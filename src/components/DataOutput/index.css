@@ -1,15 +1,22 @@
+.item-list{
+    background-color: lightpink;
+    width:200px;
+    margin: 0 auto;
+}
+
+
 .item-container{
-    border:3px ;
+    background-color: lightblue;
+    width:200px;
+    height:50px;
+    border:solid 1px ;
     padding: 20px;
+
 }
 
 .item-name{
-    width: 50%;
     float: left;
-    padding: 20px;
-
 }
-
 
 button {
     background: transparent;

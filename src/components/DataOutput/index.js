@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import DraggableList from "react-draggable-list";
+import DraggableList from "react-draggable-lists";
 import  './index.css'
 
 const DataOutput = ({thisList,handleQuantityIncrease,handleQuantityDecrease,handleSelected}) =>{
@@ -9,7 +9,7 @@ const DataOutput = ({thisList,handleQuantityIncrease,handleQuantityDecrease,hand
     return(
 
         <div className="item-list">
-            {thisList.map((item,index) =>{
+            {thisList.map((item) =>{
                 /*
                 must put a container around multiple div
                  */
@@ -18,10 +18,10 @@ const DataOutput = ({thisList,handleQuantityIncrease,handleQuantityDecrease,hand
                 console.log(item.itemId)
 
                return (
-                   <DraggableList>
-                       <li key={index}>
+                   <DraggableList rowSize={1} width={200} height={50}>
                    <div className="item-container" id={item.itemId} key={item.itemId + item.itemName} onClick ={() => handleSelected(item.itemId)}>
-                    <div className="item-name" >
+
+                       <div className="item-name">
                         <span className={item.itemSelected?'isSelected':'notSelected'}>{item.itemName}</span>
                     </div>
 
@@ -35,12 +35,14 @@ const DataOutput = ({thisList,handleQuantityIncrease,handleQuantityDecrease,hand
                         </button>
 
                     </div>
+
                 </div>
-                       </li>
                    </DraggableList>
+
+
                )
 
-                })})
+                })}
 
         </div>
 
