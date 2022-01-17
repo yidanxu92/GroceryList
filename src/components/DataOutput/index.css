@@ -1,27 +1,37 @@
 .item-list{
-    background-color: lightpink;
-    width:200px;
-    margin: 0 auto;
+    padding: 0;
+    list-style-type: none;
+    clear: both;
+    margin:auto;
+    text-align: center;
 }
 
 
-.item-container{
-    background-color: lightblue;
-    width:200px;
-    height:50px;
-    border:solid 1px ;
-    padding: 20px;
 
+.item-name-quantity-even,.item-name-quantity-odd {
+    font-size: 1.3rem;
+    margin:auto;
+    width:300px;
+    color: #FFFFFF;
+    height: 30px;
+    padding: 10px;
+    text-align: center;
 }
 
-.item-name{
-    float: left;
+
+
+.item-name-quantity-even{
+    background: #673AB7;
 }
+
+.item-name-quantity-odd{
+    background: #4527A0;
+}
+
 
 button {
     background: transparent;
     border: none;
-    margin: 3px;
     color: #ec645b;
 }
 button:focus {
@@ -32,7 +42,27 @@ button:hover {
     cursor: pointer;
 }
 
-.isSelected{
+span.isSelected{
+    background: #D1C4E9;
+    color: rgba(0, 0, 0, 0.38);
     text-decoration: line-through;
+    display:inline;
+
+
+}
+
+span.notSelected{
+    display:inline;
+
+}
+
+span.item-delete-button{
+    display:inline;
+    float:left;
+}
+
+span.item-quantity-button{
+    display:inline;
+    float:right;
 }
 

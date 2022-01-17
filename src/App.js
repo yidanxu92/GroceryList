@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import Header from './components/Header/index';
 import DataInput from './components/DataInput';
@@ -36,6 +36,12 @@ const App = () =>{
 
     }
 
+    const handleDeleteItem = (id) =>{
+        let copy = [...thisList];
+        copy = copy.length===1?[]:copy.filter(item =>item.itemId !==copy[id].itemId);
+        setThisList(copy);
+    }
+
     const handleQuantityIncrease = (id) =>{
         let copy = [...thisList];
         copy[id].itemQuantity++;
@@ -61,6 +67,20 @@ const App = () =>{
     }
 
 
+    const handleOnDragEnd =(result)=> {
+        if (!result.destination) return;
+        if (result.destination.index === result.source.index) {
+            return;
+        }
+
+        const items = Array.from(thisList);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+
+        setThisList(items);
+    }
+
+
 
 
 
@@ -73,6 +93,8 @@ const App = () =>{
                 <DataOutput thisList={thisList} handleQuantityIncrease = {handleQuantityIncrease}
                             handleQuantityDecrease = {handleQuantityDecrease}
                             handleSelected ={handleSelected}
+                            handleOnDragEnd ={handleOnDragEnd}
+                            handleDeleteItem = {handleDeleteItem}
                             />
             </main>
         </React.Fragment>

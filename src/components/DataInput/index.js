@@ -25,8 +25,8 @@ const DataInput =({addItem})=>{
 
     return(
         <form onSubmit={handleSubmit}>
-            <input value = {userInput} type = "text" onChange = {handleChange} placeholder ="Enter items..."/>
-            <button>Add</button>
+            <input className="submission-line_input" value = {userInput} type = "text" onChange = {handleChange} placeholder ="Enter new item here..."/>
+            <button className="submission-line_btn">Add</button>
         </form>
 
     )
