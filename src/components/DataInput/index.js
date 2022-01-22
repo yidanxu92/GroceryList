@@ -6,11 +6,9 @@ const DataInput =({addItem})=>{
     const [userInput,setUserInput] = useState('');
 
     const handleChange = (e) =>{
-
-        if(e.currentTarget.value !== ""){
+        const re = /^[A-Za-z0-9 \-\.\?\!]+$/;
+        if (e.target.value === "" || re.test(e.target.value))
             setUserInput(e.currentTarget.value)
-        }
-
     }
 
     const handleSubmit = (e) =>{

@@ -14,7 +14,7 @@ function SelectionBar({sortArray}){
     return(
             <div className="sort-table">
                 <select className="sort-by" onChange={ (e) => setSortType(e.target.value)}>
-                    <option value="">SelectOne</option>
+                    <option value="">Select One</option>
                     <option value="Unfinished to Finished" onClick ={useEffect}>Unfinished First</option>
                 </select>
             </div>

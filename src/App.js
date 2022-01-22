@@ -12,8 +12,21 @@ const App = () =>{
     const [thisList, setThisList] = useState( [])
 
     const addItem=(userInput) => {
+        userInput = userInput.toUpperCase();
         let copy = [...thisList];
-        copy = [...copy, {itemId:thisList.length,itemName:userInput,itemQuantity:1,itemSelected:false}];
+        const itemNameExist= (item) => item.itemName === userInput;
+        if (copy.some(itemNameExist)){
+            alert("This item already exists.");
+            copy.find(x=>x.itemName === userInput).itemQuantity++;
+        }
+        else{
+            copy = [...copy, {itemId:thisList.length,itemName:userInput,itemQuantity:1,itemSelected:false}];
+            localStorage.setItem(thisList.length.toString(),userInput);
+            console.log ("current localStorage :", localStorage.getItem(thisList.length.toString()));
+        }
+
+
+
         setThisList(copy);
 
     }
