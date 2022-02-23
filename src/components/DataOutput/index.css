@@ -29,16 +29,18 @@
 }
 
 
-button {
+.quantity-update-button {
     background: transparent;
     border: none;
     color: #ec645b;
 }
-button:focus {
+
+
+.quantity-update-button:focus {
     outline: 0;
 }
 
-button:hover {
+.quantity-update-button:hover {
     cursor: pointer;
 }
 
@@ -53,7 +55,19 @@ span.isSelected{
 
 span.notSelected{
     display:inline;
+}
 
+.item-logo-section{
+    display:inline;
+    margin:auto;
+    padding: 10px;
+
+}
+.item-logo-section img{
+    display:inline;
+    width:15px;
+    height:15px;
+    margin:auto;
 }
 
 span.item-delete-button{

@@ -4,6 +4,14 @@ form{
     padding:10px;
 }
 
+.submission-line_btn{
+    height:55px;
+    width: 4%;
+    font-size: 1.8rem;
+    border:none;
+    color:white;
+    background-color: #9575CD;
+}
 
 .submission-line_input {
     padding-left: 10px;
@@ -24,9 +32,9 @@ form{
 
 }
 
-.submission-line_btn {
+.submission-line_select {
     height: 44px;
-    width: 10%;
+    width: 15%;
     background: #FFC107;
 
     border: none;
@@ -35,7 +43,8 @@ form{
 }
 
 .submission-line_input,
-.submission-line_btn {
+.submission-line_btn,
+.submission-line_select{
     margin-bottom: 16px;
 }
 

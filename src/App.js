@@ -11,7 +11,10 @@ import './App.css';
 const App = () =>{
     const [thisList, setThisList] = useState( [])
 
-    const addItem=(userInput) => {
+    const addItem=(userInput,storeChoice) => {
+        let logoMap = {"Aldi":"/logo_aldi.png","Asian Market":"/logo_koreanmarket.jpeg","Others":"logo_others.jpeg",
+            "Trader Joe":"/logo_traderjoe.png","Walmart":"/logo_walmart.png","Wegmans":"/logo_wegmans.png"};
+
         userInput = userInput.toUpperCase();
         let copy = [...thisList];
         const itemNameExist= (item) => item.itemName === userInput;
@@ -20,12 +23,11 @@ const App = () =>{
             copy.find(x=>x.itemName === userInput).itemQuantity++;
         }
         else{
-            copy = [...copy, {itemId:thisList.length,itemName:userInput,itemQuantity:1,itemSelected:false}];
+            copy = [...copy, {itemId:thisList.length,itemName:userInput,itemQuantity:1,itemSelected:false,
+                itemStore:storeChoice,itemLogo:logoMap[storeChoice]}];
+
             localStorage.setItem(thisList.length.toString(),userInput);
-            console.log ("current localStorage :", localStorage.getItem(thisList.length.toString()));
         }
-
-
 
         setThisList(copy);
 
@@ -33,19 +35,26 @@ const App = () =>{
 
 
     const sortArray = (type) => {
-        console.log("here is the type");
-        console.log(type);
         const types = {
-            'Unfinished to Finished':'itemSelected'
+            'Unfinished to Finished':'itemSelected','Store Name A-Z':'itemStore'
         };
 
         const sortProperty = types[type];
-        console.log("here is the property");
-        console.log(sortProperty);
-        const sorted = [...thisList].sort((a, b) => a[sortProperty] - b[sortProperty]);
+        console.log ("the current sortProperty is ",sortProperty);
+
+        let sorted = [...thisList];
+        if(types[type] === 'itemSelected')
+        {
+            sorted.sort((a, b) => a[sortProperty] - b[sortProperty]);
+        }
+
+        if(types[type] === 'itemStore')
+        {
+            sorted.sort((a, b) => a[sortProperty].localeCompare( b[sortProperty]));
+
+        }
+
         setThisList(sorted);
-        console.log("here is the sorted list")
-        console.log(sorted);
 
     }
 
@@ -58,8 +67,6 @@ const App = () =>{
     const handleQuantityIncrease = (id) =>{
         let copy = [...thisList];
         copy[id].itemQuantity++;
-        console.log(id);
-        console.log(copy[id].itemQuantity);
         setThisList(copy);
     }
 
@@ -67,8 +74,6 @@ const App = () =>{
         let copy = [...thisList];
         copy[id].itemQuantity=(copy[id].itemQuantity>1) ? (copy[id].itemQuantity-1) : 1
         //copy[id].itemQuantity=copy[id].itemQuantity-1
-        console.log(id);
-        console.log(copy[id].itemQuantity);
         setThisList(copy);
     }
 
