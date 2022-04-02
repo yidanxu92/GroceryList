@@ -8,9 +8,10 @@
 
 
 
-.item-name-quantity-even,.item-name-quantity-odd {
+.item-store-Aldi,.item-store-AsianMarket,.item-store-AsianMarket,.item-store-TraderJoe,.item-store-Walmart,
+.item-store-Wegmans,.item-store-Others {
     font-size: 1.3rem;
-    margin:auto;
+    margin-top:10px;
     width:300px;
     color: #FFFFFF;
     height: 30px;
@@ -26,6 +27,36 @@
 
 .item-name-quantity-odd{
     background: #4527A0;
+}
+
+.item-store-Aldi{
+    background: #ED5314;
+
+}
+
+.item-store-AsianMarket{
+    background:#FFB92A;
+
+}
+
+.item-store-TraderJoe{
+    background:#255E79;
+
+}
+
+.item-store-Walmart{
+    background:#C2549D;
+
+}
+
+.item-store-Wegmans{
+    background:#75C2B0
+
+}
+
+.item-store-Others{
+    background:#FFC8B3
+
 }
 
 

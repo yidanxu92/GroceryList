@@ -5,22 +5,11 @@ import './index.css';
 function SelectionBar({sortArray}){
 
 
-    const [sortType, setSortType] = useState ('')
-
     const handleSelectChange = (e) =>{
-        if(e.target.value !=="")
-        {
-            setSortType(e.target.value);
-            console.log("current sortType is ", sortType);
-            sortArray(sortType);
-        }
-
-
+        sortArray(e.target.value);
+        console.log("current e.target.value is ", e.target.value);
     }
 
- /*   useEffect ( () => {
-        sortArray(sortType);
-    },[sortType]);*/
 
     return(
             <div className="sort-table">
