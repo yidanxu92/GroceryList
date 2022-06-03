@@ -10,7 +10,7 @@ form{
     font-size: 1.8rem;
     border:none;
     color:white;
-    background-color: #9575CD;
+    background-color: #C3A6A0;
 }
 
 .submission-line_input {
@@ -35,7 +35,7 @@ form{
 .submission-line_select {
     height: 44px;
     width: 15%;
-    background: #FFC107;
+    background: #511f1e;
 
     border: none;
     font-size: 1.3rem;
