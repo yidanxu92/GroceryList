@@ -14,7 +14,11 @@
 .item-ingredient,.item-amount,.item-unit{
     display:inline;
     margin: auto;
+}
 
+.recipe-delete-button{
+    display:inline;
+    margin:auto;
 }
 
 

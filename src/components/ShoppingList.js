@@ -6,9 +6,6 @@ import DataOutput from './grocerycontents/DataOutput';
 import './ShoppingList.css';
 
 const ShoppingList = () =>{
-    /*ThisList is the array where all items are stored.*/
-    const [thisList, setThisList] = useState( [])
-
     /*listStatus is a dictionary of dictionary,
     each object contains a store name and items bought from the store,
     eventually that is what will be printed out to screen as store Columns  */
@@ -79,6 +76,8 @@ const ShoppingList = () =>{
         return(arr);
 
     }
+
+
 
     /* This function takes a userInput (string) passed from DataInput and add it to theColumn */
     const addItem=(userInput,storeChoice) => {
@@ -157,6 +156,13 @@ const ShoppingList = () =>{
 
     }
 
+    /*
+    handleDeleteItem takes name and store of the selected item and delete it from the date structure.
+    The reason we use name is because 1. it is unique 2.unlike index it is fixed.
+    when delete the actual item, use filter instead of splice, as the latter returns the deleted item,which would cause
+    problems when you assign it to the original array which you are supposed to do with set Usestate
+     */
+
     const handleDeleteItem = (name,store) =>{
         console.log ("handleDeleteItem is being called!!")
         /* let copy = columnToList();
@@ -182,6 +188,10 @@ const ShoppingList = () =>{
             console.log(item.itemName)
         })
 
+        /*
+        question: can I write [store]:{...copyThisColumnsArray}instead? since all I did there is to delete an item,
+        there is no new value assigned.
+        * */
         setThisColumns({
             ...thisColumns,
             [store]:{

@@ -10,11 +10,10 @@ import Button from '@material-ui/core/Button';
 
 
 
-const Form = ({handleClose,localInput,arrayOfUnits}) =>{
+const Form = ({handleClose,arrayOfUnits,addToArray}) =>{
     const [itemName,setItemName] = useState('')
-    const [itemAmount, setItemAmount] = useState('')
-    const [itemArray,setItemArray] = useState([])
-    const[itemUnit,setItemUnit] = useState('');
+    const [itemAmount, setItemAmount] = useState("")
+    const [itemUnit, setItemUnit] = useState('')
 
     /*
     This function will run after user clicks "finish". it first calls handleAdd ( the function below) which generate a new
@@ -37,16 +36,6 @@ const Form = ({handleClose,localInput,arrayOfUnits}) =>{
      */
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log("handleSubmit is called");
-        console.log("handleSubmit,before:array length is",itemArray.length);
-        handleAdd(e);
-        console.log("handleSubmit,after:array length after add is",itemArray.length);
-        localStorage.setItem(localInput,JSON.stringify(itemArray));
-        let result = localStorage.getItem(localInput);
-        console.log("before parse ",result);
-        let finalResult = JSON.parse(result);
-        console.log("after parse",finalResult);
-        finalResult.forEach(obj=>{console.log(obj['ingredient']);});
         handleClose();
     }
 
@@ -61,22 +50,22 @@ const Form = ({handleClose,localInput,arrayOfUnits}) =>{
 
     const handleAdd = (e) =>{
         e.preventDefault();
-        console.log("handleAdd is called");
-        let newObject = {'ingredient':itemName,'amount':itemAmount,'unit':itemUnit};
+        console.log("handleSAdd is called!")
         console.log("itemName: ",itemName);
         console.log("itemAmount: ",itemAmount);
         console.log("itemUnit: ",itemUnit);
-        console.log(newObject);
-        console.log("handleAdd,before:array length is",itemArray.length);
-        console.log("itemArray before set: ",itemArray);
-        setItemArray(itemArray => [...itemArray, newObject]);
-        console.log("handleAdd,after:array length is",itemArray.length);
-        console.log("itemArray after set: ",itemArray);
+        let itemObj = {ingredient:"",amount:"",unit:""}
+        itemObj.ingredient = itemName;
+        itemObj.amount = itemAmount;
+        itemObj.unit = itemUnit;
+        console.log("itemObj is ",itemObj);
+        addToArray(itemObj);
         setItemName('');
         setItemAmount('');
         setItemUnit('');
 
     }
+
 
     return (
         <form onSubmit={handleSubmit}>
@@ -123,11 +112,8 @@ const Form = ({handleClose,localInput,arrayOfUnits}) =>{
             </Box>
 
             <div>
-                <Button variant="contained" onClick = {handleClose}>
-                    Cancel
-                </Button>
-                <Button onClick = {handleAdd}>
-                    Add More
+                <Button variant="contained" onClick = {handleAdd}>
+                    Add
                 </Button>
                 <Button type="submit" variant="contained" color="primary" >
                     Finish

@@ -4,10 +4,9 @@ import Popup from '../Popup/popup.js';
 import Modal from '../Modal/modal.js';
 
 
-const DataInput =({handleState,arrayOfUnits})=> {
+const DataInput =({handleState,arrayOfUnits,addToArray,open,handleFormOpen,handleClose})=> {
     const [localInput, setLocalInput] = useState('');
     const [buttonPopup, setButtonPopup] = useState(false);
-    const [open, setOpen] = useState(false);
 
 
     const handleChange = (e) => {
@@ -16,6 +15,7 @@ const DataInput =({handleState,arrayOfUnits})=> {
         const re = /^[A-Za-z0-9 \-\.\?\!]+$/;
         if (e.target.value === "" || re.test(e.target.value))
             setLocalInput(e.currentTarget.value)
+        console.log("localInput is ",localInput);
     }
 
 
@@ -24,7 +24,8 @@ const DataInput =({handleState,arrayOfUnits})=> {
         console.log("handlePopup is called");
         console.log("current userInput is",localInput);
         if (localInput in localStorage) {
-            console.log(localInput,"does exists!")
+            handleState(localInput);
+            console.log(localInput,"does exists!");
         }
 
         else {
@@ -37,19 +38,14 @@ const DataInput =({handleState,arrayOfUnits})=> {
     }
 
 
-
-    const handleOpen = ({localInput}) => {
+    const handleOpen = () => {
         console.log("handle open is being called!")
-        setOpen(true);
+        handleFormOpen();
         setButtonPopup(false);
-        localStorage.setItem(localInput,'');
-    }
-
-    const handleClose = () => {
-        console.log("handle close is being called!")
+        console.log("localInput is ",localInput);
         handleState(localInput);
         setLocalInput("");
-        setOpen(false);
+
     }
 
 
@@ -68,7 +64,8 @@ const DataInput =({handleState,arrayOfUnits})=> {
                 </>}
                 handleClose={handlePopup}
             />}
-            {open && <Modal open={open} handleClose={handleClose} localInput={localInput} arrayOfUnits={arrayOfUnits}></Modal>}
+            {open && <Modal open={open} handleClose={handleClose}
+                            arrayOfUnits={arrayOfUnits} addToArray={addToArray}></Modal>}
         </form>
 
 
