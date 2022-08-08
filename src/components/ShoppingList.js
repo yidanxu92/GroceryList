@@ -181,7 +181,8 @@ const ShoppingList = () =>{
             console.log(item.itemName)
         })
         let index = copyThisColumnsArray.findIndex(item => item.itemName === name);
-        copyThisColumnsArray=copyThisColumnsArray.length === 1?[]:copyThisColumnsArray.filter(item =>item.itemName !==copyThisColumnsArray[index].itemName);
+        copyThisColumnsArray=copyThisColumnsArray.length === 1?[]:copyThisColumnsArray.filter(item =>item.itemName
+            !==copyThisColumnsArray[index].itemName);
         console.log("the length of the array after filtering is ",copyThisColumnsArray.length)
         console.log("Current items in this list AFTER delete is: ")
         copyThisColumnsArray.forEach(item => {

@@ -3,13 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.16",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@material-ui/core": "^4.12.4",
-    "@testing-library/jest-dom": "^5.15.0",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/lab": "^5.0.0-alpha.86",
+    "@mui/material": "^5.8.4",
+    "@mui/styles": "^5.8.4",
+    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^11.2.7",
     "depcheck": "^1.4.3",
+    "material-table": "^1.69.3",
+    "mui-datatables": "git+https://github.com/penseapp/mui-datatables.git",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-checkmark": "^1.4.0",
@@ -18,7 +26,8 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",
     "react-toggle-button": "^2.2.0",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "zustand": "^4.0.0-rc.1"
   },
   "scripts": {
     "start": "react-scripts start",
