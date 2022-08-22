@@ -27,12 +27,15 @@ export const confirmDialog = (title,message, onSubmit) => {
 
 const ConfirmationDialog = ()=> {
 
+    console.log("confirmation dialog is being called!")
     const { title, message, onSubmit, close } = useConfirmDialogStore();
+    console.log("title is ",title)
+    console.log("message is ", message)
 
     return (
         <Dialog open={Boolean(onSubmit)} onClose={close} maxWidth="sm" fullWidth>
             <DialogTitle>
-                <Typography>{title}</Typography>
+                <span style={{color: 'black'}}>{title}</span>
             </DialogTitle>
             <Box position="absolute" top={0} right={0}>
                 <CloseIcon onClick={close}/>

@@ -26,7 +26,7 @@ export function setWithExpiry(key,value,ttl){
 
 
 export function getWithExpiry() {
-    console.log("getWithExpiry is called)")
+    console.log("getWithExpiry is called!")
     const itemStr = localStorage.getItem('lastOpen')
 
     // if the item doesn't exist, return null

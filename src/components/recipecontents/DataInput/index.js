@@ -8,74 +8,113 @@ import { confirmDialog } from '../ConfirmationDialog/index.js';
 import TextField from '@mui/material/TextField';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 
 
-/*const filter = createFilterOptions();
+/*const filter = createFilterOptions();*/
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-}));*/
+}));
 
 
+const filter = createFilterOptions();
 
 const DataInput =({handleState,mainStructure,handleFormOpen,handleFormClose,open})=> {
     console.log("this is dataInput");
 
     /*This line returns all keys in localStorage to an array, then we can filter */
 
-    let keys = Object.keys(localStorage);
-    console.log(keys);
+    let keysFromStorage = Object.keys(localStorage);
+    console.log("keysFromStorage is ",keysFromStorage)
+    keysFromStorage = keysFromStorage.filter(data =>{return data !=='lastOpen'})
+    console.log("keys (aka all the options) is", keysFromStorage);
+    const menuOptions = []
+    keysFromStorage.forEach((data) => menuOptions.push({name:data}) )
+    console.log("menuOptions is", menuOptions);
 
-    const [localInput, setLocalInput] = useState('');
+
+    const [value, setValue] = useState(null);
     const [buttonPopup, setButtonPopup] = useState(false);
+    console.log("current value is ",value)
 
 
-    const handleChange = (e) => {
+   /* const handleChange = (e,newValue) => {
         e.preventDefault();
         console.log("we are in handleChange")
+        console.log("newValue is ", newValue)
 
 
         const re = /^[A-Za-z0-9 \-\.\?\!]+$/;
         if (e.target.value === "" || re.test(e.target.value))
             setLocalInput(e.currentTarget.value)
+        if(typeof newValue === 'string'){
+            setLocalInput(newValue)
+        }
 
-      /*  if (newValue && newValue.inputValue){
+        else if (newValue && newValue.inputValue){
             console.log("we have new input!")
+            console.log("newValue.inputValue is ", newValue.inputValue)
             setLocalInput(newValue.inputValue)
         }
         else{
             setLocalInput(newValue)
-        }*/
+        }
 
-    }
+    }*/
 
 
-   /* const handleOption = (option) => {
+   /* const handleChange = (e,newValue) => {
+        e.preventDefault();
+        console.log("handleChange is called!")
+        console.log("newValue is ",newValue)
+        setLocalInput(newValue)
+    }*/
+/*
+    const handleOption = (option) => {
         console.log("handleOption is being called!")
+        console.log("option is ",option)
+        console.log("is the type of option a string?" ,(typeof option === 'string')?"yes":"no");
+
+        if (typeof option === 'string') {
+            console.log("we are inside option == string")
+            return option;
+        }
+
         // Add "xxx" option created dynamically
+
+
         if (option.inputValue) {
             console.log("we found input value. inside if statement")
+            console.log("option.inputValue is ",option.inputValue);
+            console.log("is the type of inputValue a string?" ,(typeof option.inputValue === 'string')?"yes":"no");
             return option.inputValue;
         }
         // Regular option
-        return option;
-    }*/
 
- /*   const handleFilter = (options, params)=>{
+        console.log("we did not hit either option === string or option.inputvalue")
+        return option;
+    }
+
+    /*const handleFilter = (keysFromStorage, params)=>{
         console.log("handleFilter is being called!")
-        const filtered = filter(options, params);
-        const { inputValue } = params;
+        const filtered = filter(keysFromStorage, params);
+        console.log("filtered is ", filtered)
+        const {inputValue} = params;
+        console.log("current params is ", params)
+        console.log("current {inputValue} is ",{inputValue})
+
         // Suggest the creation of a new value
-        const isExisting = options.some((option) => inputValue === option);
+        const isExisting = keysFromStorage.some((option) => inputValue === option);
         if (inputValue !== '' && !isExisting) {
-            console.log("we found non existing value!")
             filtered.push({inputValue});
+            console.log("after push, filtered  array is ",filtered)
         }
 
         return filtered;
@@ -86,19 +125,22 @@ const DataInput =({handleState,mainStructure,handleFormOpen,handleFormClose,open
         console.log("handleOpen is being called!")
         handleFormOpen();
         setButtonPopup(false);
-        handleState(localInput);
+        console.log("we are calling handleState with value: ",value.name)
+        handleState(value.name);
         /* setLocalInput("");*/
     }
 
 
     const handlePopup = (e) =>{
+
         e.preventDefault();
         if(open){
             handleFormClose();
         }
 
-        if (localInput in localStorage) {
-            handleState(localInput);
+        console.log("We are inside handlePopup. value is ", value?.name)
+        if (value?.name in localStorage) {
+            handleState(value.name);
             handleFormOpen();
         }
 
@@ -111,6 +153,7 @@ const DataInput =({handleState,mainStructure,handleFormOpen,handleFormClose,open
         }
 
     }
+
 
    /* const handlePopup = (e) => {
         e.preventDefault();
@@ -131,14 +174,14 @@ const DataInput =({handleState,mainStructure,handleFormOpen,handleFormClose,open
 
     return (
 
-        <form>
+       /* <form>
             <input className="submission-line_input" value={localInput} type="text" onChange={handleChange}
                    placeholder="Enter here..."/>
             <button className="submission-line_select" onClick={handlePopup}>submit</button>
 
             {buttonPopup &&  <ConfirmationDialog />}
 
-        </form>
+        </form>*/
 
 
         /*{open && <Modal open={open} handleClose={handleClose}
@@ -154,32 +197,88 @@ const DataInput =({handleState,mainStructure,handleFormOpen,handleFormClose,open
                handleClose={handlePopup}
            />}*/
 
-        /* <Stack spacing={2} alignItems="center" direction="row">
+         <Stack spacing={2} alignItems="center" justifyContent="center" direction="row">
          <Item>
-             <Autocomplete id="input-textfield" value={localInput} onChange={handleChange}
-                           filterOptions = {handleFilter}
+             <Autocomplete value={value}
+                           freeSolo
+                           options={menuOptions}
+                           onChange={(e,newValue)=>{
+                               console.log("we are in handleChange");
+                               console.log("newValue is ", newValue);
+                               if(typeof newValue === 'string')
+                               {
+                                   setValue({
+                                       name:newValue,
+                                   })
+                               }
+                               else if(newValue && newValue.inputValue)
+                               {
+                                   setValue({
+                                       name:newValue.inputValue,
+                                   })
+                               }
+                               else{
+                                   setValue(newValue);
+                               }
+
+                           }}
+                           
+                           filterOptions = {(options,params) =>{
+                               const filtered = filter(options, params);
+                               const { inputValue } = params;
+                               const isExisting = options.some((option)=> inputValue === option.name);
+                               if (inputValue !== '' && !isExisting) {
+                                   filtered.push({
+                                       inputValue,
+                                       name: `Add "${inputValue}"`,
+                                   });
+                               }
+                               return filtered;
+
+                           }}
                            selectOnFocus
                            clearOnBlur
                            handleHomeEndKeys
-                           options={keys}
-                           getOptionLabel = {handleOption}
-                           renderOption = {(props, option) => <li {...props}>{option}</li>}
                            sx={{ width: 300 }}
+                           getOptionLabel={(option) => {
+                               // Value selected with enter, right from the input
+                               if (typeof option === 'string') {
+                                   return option;
+                               }
+                               // Add "xxx" option created dynamically
+                               if (option.inputValue) {
+                                   return option.inputValue;
+                               }
+                               // Regular option
+                               return option.name;
+                           }}
+                           renderOption={(props, option) => <li {...props}>{option.name}</li>}
                            renderInput={(params) => (
-                               <TextField {...params} label="Enter Here..." />
+                               <TextField {...params} label="Enter here..." />
                            )}
+
+
+
+
              />
 
          </Item>
 
-          <Item>
-              <Button  variant="contained" onClick={handlePopup}>submit</Button>
-              {buttonPopup &&  <ConfirmationDialog />}
-          </Item>
+
+             <Item>
+                 <Button  variant="contained" onClick={handlePopup} disabled={value?false:true} sx={{color:"white",backgroundColor:"#511f1e"}}>submit</Button>
+                 {buttonPopup &&  <ConfirmationDialog />}
+
+
+             </Item>
 
 
 
-      </Stack>*/
+
+
+
+
+      </Stack>
 
 
     )
