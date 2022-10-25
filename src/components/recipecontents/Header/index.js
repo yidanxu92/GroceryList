@@ -4,7 +4,7 @@ import './index.css';
 function Header(){
     return(
         <header>
-            <h2 className="header_title">Recipe</h2>
+            <h2  className="header_title">Recipe</h2>
         </header>
     )
 }

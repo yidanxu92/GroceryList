@@ -15,6 +15,7 @@
     "@mui/styles": "^5.8.4",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^11.2.7",
+    "axios": "^0.27.2",
     "depcheck": "^1.4.3",
     "material-table": "^1.69.3",
     "mui-datatables": "git+https://github.com/penseapp/mui-datatables.git",

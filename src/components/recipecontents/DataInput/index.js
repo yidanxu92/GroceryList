@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
+import Axios from "axios";
 
 
 /*const filter = createFilterOptions();*/
@@ -40,34 +41,69 @@ const DataInput =({handleState,mainStructure,handleFormOpen,handleFormClose,open
     console.log("menuOptions is", menuOptions);
 
 
+    /* value is the food object user searched*/
     const [value, setValue] = useState(null);
     const [buttonPopup, setButtonPopup] = useState(false);
     console.log("current value is ",value)
 
+    const APP_ID = "bbcd4249";
+    const APP_KEY = "9e8db8688d1cfc220a5ce2b9df27c849";
+    const url = `https://api.edamam.com/search?q=${value?.name}&app_id=${APP_ID}&app_key=${APP_KEY}&&health=alcohol-free`;
+    const config = {
+        url,
+        headers:{
+            'Access-Control-Allow-Origin': "*",
+            'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        }
+    }
 
-   /* const handleChange = (e,newValue) => {
-        e.preventDefault();
-        console.log("we are in handleChange")
-        console.log("newValue is ", newValue)
+    const getData = async () => {
+        console.log("we are in getData!")
+        if (value.name !== "" || null){
+            const result = await Axios.get(url);
+            if (!result.data.more) {
+                setButtonPopup(!buttonPopup);
+                confirmDialog('Item Not Found','We cannot find the recipe. Do you want to create a new one?', () => {
+                    console.log('we are about to call handleOpen()')
+                    handleOpen();
+                })
 
+            }
 
-        const re = /^[A-Za-z0-9 \-\.\?\!]+$/;
-        if (e.target.value === "" || re.test(e.target.value))
-            setLocalInput(e.currentTarget.value)
-        if(typeof newValue === 'string'){
-            setLocalInput(newValue)
+            else{
+                console.log("The result is ",result)
+            }
         }
 
-        else if (newValue && newValue.inputValue){
-            console.log("we have new input!")
-            console.log("newValue.inputValue is ", newValue.inputValue)
-            setLocalInput(newValue.inputValue)
-        }
-        else{
-            setLocalInput(newValue)
-        }
 
-    }*/
+
+    }
+
+
+
+    /* const handleChange = (e,newValue) => {
+         e.preventDefault();
+         console.log("we are in handleChange")
+         console.log("newValue is ", newValue)
+
+
+         const re = /^[A-Za-z0-9 \-\.\?\!]+$/;
+         if (e.target.value === "" || re.test(e.target.value))
+             setLocalInput(e.currentTarget.value)
+         if(typeof newValue === 'string'){
+             setLocalInput(newValue)
+         }
+
+         else if (newValue && newValue.inputValue){
+             console.log("we have new input!")
+             console.log("newValue.inputValue is ", newValue.inputValue)
+             setLocalInput(newValue.inputValue)
+         }
+         else{
+             setLocalInput(newValue)
+         }
+
+     }*/
 
 
    /* const handleChange = (e,newValue) => {
@@ -145,11 +181,8 @@ const DataInput =({handleState,mainStructure,handleFormOpen,handleFormClose,open
         }
 
         else {
-            setButtonPopup(!buttonPopup);
-            confirmDialog('Item Not Found','We cannot find the recipe. Do you want to create a new one?', () => {
-                console.log('we are about to call handleOpen()')
-                handleOpen();
-            })
+            getData();
+
         }
 
     }

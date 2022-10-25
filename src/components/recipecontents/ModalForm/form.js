@@ -48,8 +48,8 @@ const Form = ({handleClose,arrayOfUnits,addToArray}) =>{
     "finish", meaning they will add more later.
      */
 
-    const handleAdd = (e) =>{
-        e.preventDefault();
+    const handleAdd = () =>{
+
         console.log("handleSAdd is called!")
         console.log("itemName: ",itemName);
         console.log("itemAmount: ",itemAmount);
